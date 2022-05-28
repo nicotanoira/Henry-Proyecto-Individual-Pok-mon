@@ -1,10 +1,11 @@
 const axios = require('axios');
-const { Pokemon, Type } = require('../db.js');
+const { Pokemon, Tipo } = require('../db.js');
+
+// SERVICIOS = Son los programas que acceden a la API externas o Bases de datos.
 
 // Axios despues de hacer un request devuelve un arreglo ENORME donde -             !!!!!!
 // la info que buscamos del URL esta almacenada en una propiedad llamada 'data' -   !!!!!!
 
-// Son los programas que acceden a la API externas o Bases de datos. UNA SOLA
 
 
 /*  Esta funcion devuelve un una lista de Pokémons con sus datos.
@@ -21,34 +22,36 @@ async function getApiPokemons() {
 
   // Como tengo que traer 40 Pokémons a la ruta principal, concateno los primeros 20 y segundos 20 para trabajar con los 40 y devolverlos.
   const all40Pokes = [
-    ...pokesApi.data.results,
-    ...pokesApiNext.data.results,       // Esto me devuelve un ARRAY de 40 objetos que tienen {name: POKENAME, url: 'https://pokeapi.co/api/v2/pokemon/NUM/' }
-  ];
-  
+    ...pokesApi.data.results,           // Esto me devuelve un ARRAY concatenado de 40 objetos que tienen 
+    ...pokesApiNext.data.results,       // {name: POKENAME, url: 'https://pokeapi.co/api/v2/pokemon/NUM/' }.
+  ];                                    
+
   // Obtengo la info de CADA Pokémon via su URL en formato de PROMESAS. ---- [Promise { <pending> }, Promise { <pending> }.........etc]
-  const pokeUrl = all40Pokes.map(pokemon => {return axios(pokemon.url)})
-  
+  const pokeUrl = all40Pokes.map(pokemon => { return axios(pokemon.url) });
+
 
   // Proceso las PROMESAS y devuelvo el resultado final.
+// Return de la FUNCION
   return Promise.all(pokeUrl).then(
-      r => {
-          r.forEach(pokemon => {
-              pokeArr.push({
-                  id: pokemon.data.id,
-                  name: pokemon.data.name,
-                  healthPoints: pokemon.data.stats[0].base_stat,
-                  attack: pokemon.data.stats[1].base_stat,
-                  defense: pokemon.data.stats[2].base_stat,
-                  speed: pokemon.data.stats[5].base_stat,
-                  height : pokemon.data.height,
-                  weight: pokemon.data.weight,
-                  type: pokemon.data.types.map(pokemon => pokemon.type.name),
-                  image: pokemon.data.sprites.front_default
-              })
-          })
-          return pokeArr;
-      }   
-  )
+    r => {
+      r.forEach(pokemon => {
+        pokeArr.push({
+          id: pokemon.data.id,
+          name: pokemon.data.name,
+          healthPoints: pokemon.data.stats[0].base_stat,
+          attack: pokemon.data.stats[1].base_stat,
+          defense: pokemon.data.stats[2].base_stat,
+          speed: pokemon.data.stats[5].base_stat,
+          height: pokemon.data.height,
+          weight: pokemon.data.weight,
+          type: pokemon.data.types.map(pokemon => pokemon.type.name),
+          image: pokemon.data.sprites.front_default
+        })
+      })
+      // Return de la PROMESA
+      return pokeArr;
+    }
+  );
 };
 
 
@@ -57,16 +60,17 @@ async function getApiPokemons() {
 
 // Traemos los Pokémons de la base de datos.
 async function getDbPokemons() {
-// Buscamos todo lo que tenga la base de datos en la tabla Pokémon que incluya el modelo Type
+  // Buscamos todo lo que tenga la base de datos en la tabla Pokémon que incluya el modelo Tipo.
   const pokesDb = await Pokemon.findAll({
-      includes: {
-      model: Type,
+    includes: {
+      model: Tipo,
       attributes: ['name'],
       through: {
-          attributes: [],
+        attributes: [],           // !!!!!!!! ESTUDIAR
       },
-      },
+    },
   });
+  console.log(pokesDb)
   return pokesDb;
 };
 
@@ -80,27 +84,48 @@ async function getAllPokemons() {
   const dbData = await getDbPokemons();
   const dbAndApiPokemons = apiData.concat(dbData);
   return dbAndApiPokemons;
-}
+};
 
 
-
+// Busca un Pokémon ESPECIFICO pasado por parametro id (que el controlador se va a encargar de manejar) y trae todas sus propiedades.
 async function searchPokemonByIdApi(id) {
   const pokeId = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
   return {
-      id: pokeId.data.id,
-      name: pokeId.data.name,
-      healthPoints: pokeId.data.stats[0].base_stat,
-      attack: pokeId.data.stats[1].base_stat,
-      defense: pokeId.data.stats[2].base_stat,
-      speed: pokeId.data.stats[5].base_stat,
-      height : pokeId.data.height,
-      weight: pokeId.data.weight,
-      type: pokeId.data.types.map(pokemon => pokemon.type.name),
-      image: pokeId.data.sprites.front_default
+    id: pokeId.data.id,
+    name: pokeId.data.name,
+    healthPoints: pokeId.data.stats[0].base_stat,
+    attack: pokeId.data.stats[1].base_stat,
+    defense: pokeId.data.stats[2].base_stat,
+    speed: pokeId.data.stats[5].base_stat,
+    height: pokeId.data.height,
+    weight: pokeId.data.weight,
+    type: pokeId.data.types.map(pokemon => pokemon.type.name),
+    image: pokeId.data.sprites.front_default
   };
+};
+
+// Busca en la API los 20 TIPOS de Pokémon y los devuelve en un ARRAY.
+async function getApiTypes() {
+  let typeArr = [];
+  const typesApi = await axios.get('https://pokeapi.co/api/v2/type');
+  const pokeTypes = typesApi.data.results.map(type => { typeArr.push(type.name) });
+  return typeArr;
 }
 
+// Id is given automatically.
+// Creamos el "molde" donde vamos a insertar la informacion que nos pasen por Body para despues devolverla ya completa.
+function createPokemonForm(name, healthPoints, attack, defense, speed, height, weight, type, image) {
+  return {
+    name,
+    healthPoints,
+    attack,
+    defense,
+    speed,
+    height,
+    weight,
+    type,
+    image
+  };
+};
 
-
-
-module.exports = {getApiPokemons, getDbPokemons, getAllPokemons, searchPokemonByIdApi}
+module.exports = { getApiPokemons, getDbPokemons, getAllPokemons, searchPokemonByIdApi, getApiTypes, createPokemonForm }

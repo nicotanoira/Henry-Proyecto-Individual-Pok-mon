@@ -1,17 +1,31 @@
 const { Router } = require('express');
 const axios = require('axios')
-const { listApiPokemonsAndQuery } = require('../controllers/listApiPokemonsAndQuery.js');
+const { listPokemonsAndQuery } = require('../controllers/listPokemonsAndQuery.js');
 // const { listApiPokemons } = require('../controllers/listApiPokemons.js');
 // const { queryNameAllPokemons } = require('../controllers/queryNameAllPokemons.js');
 const { getPokemonById } = require('../controllers/getPokemonById.js');
+const { getPokemonTypes } = require('../controllers/getPokemonTypes.js');
+const { createPokemon } = require('../controllers/createPokemon.js');
 
 const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-router.use('/pokemons/:idPokemon', getPokemonById);
-router.use('/pokemons', listApiPokemonsAndQuery); // Esto lo termine el Jueves 26
+// Get by ID
+router.get('/pokemons/:idPokemon', getPokemonById);
+
+// Post with Body
+router.post('/pokemons', createPokemon);
+
+// Get all Pokemons with QUERY if added
+router.get('/pokemons', listPokemonsAndQuery);
+
+// Get all TYPES
+router.get('/types', getPokemonTypes);
+
+
+
 
 
 
