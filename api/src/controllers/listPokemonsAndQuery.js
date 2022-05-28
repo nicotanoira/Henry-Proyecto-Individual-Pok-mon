@@ -2,7 +2,6 @@ const axios = require('axios');
 const { getDbPokemons, getAllPokemons } = require('../services/pokemonServices.js');
 const { Pokemon, Tipo } = require('../db.js')
 const { Op } = require("sequelize");
-const { Sequelize } = require('sequelize')
 
 // Los controladores reciben y devuelven las peticiones al FrontEnd - Se comunican con los servicios
 
@@ -17,28 +16,37 @@ module.exports = {
                 
                 // Traemos de la Base de Datos el name pasado por Query, si es que existe.
                 // We grab the name passed by Query from our Database, if it exists.
-
-
-                
-                //const searchDbPokeName = await getDbPokemons();
-
-
-                //const searchDbPokeName = await Pokemon.findOne({ where: {name: {[Op.iLike]: name}}})
                 const searchDbPokeName = await Pokemon.findOne({where: { name: name }})
-                console.log(searchDbPokeName)
+
                 // Si encontramos el name *CASE SENSITIVE* en la Base de Datos, entra en el if y devuelve ese Pokémon
                 if (searchDbPokeName !== null) {
                     res.status(200).send(searchDbPokeName);
 
                     // Si no, chequea si esta en la API.
                 } else {
+                    // Pasamos el QUERY a Lower Case.
                     name = name.toLowerCase();
-                    console.log('MINUSCULA ' + name)
+
                     const searchApiPokeName = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`) // Search it in the API
                     // Comprobamos en minuscula si el nombre recibido por Query existe en la API, y si es asi, lo devuelve.
                     // We try to match on lower case if the name received by Query exists in the API. If it does, it returns it.
                     if (searchApiPokeName.data.name.toLowerCase() === name) {
-                        res.status(200).send(searchApiPokeName.data);
+                        // We get from the API the info to-be shown to the FrontEnd.
+                        const pokeInfoRequested = {
+                                id: searchApiPokeName.data.id,
+                                name: searchApiPokeName.data.name,
+                                healthPoints: searchApiPokeName.data.stats[0].base_stat,
+                                attack: searchApiPokeName.data.stats[1].base_stat,
+                                defense: searchApiPokeName.data.stats[2].base_stat,
+                                speed: searchApiPokeName.data.stats[5].base_stat,
+                                height: searchApiPokeName.data.height,
+                                weight: searchApiPokeName.data.weight,
+                                type: searchApiPokeName.data.types.map(pokemon => pokemon.type.name),
+                                image: searchApiPokeName.data.sprites.front_default
+                              }
+
+                        // We send the Pokémon the way it's requested.
+                        res.status(200).send(pokeInfoRequested);
                     } else {
                         res.status(404).json({message : 'No se encontro el Pokémon solicitado'}) 
                     }
