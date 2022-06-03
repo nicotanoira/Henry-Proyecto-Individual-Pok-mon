@@ -43,5 +43,14 @@ module.exports = (sequelize) => {
       allowNull: true,
       defaultValue: 0
     },
+    image: {
+      type: DataTypes.TEXT,
+      allowNull: false
+    },
+    createdInDb: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
   }, {timestamps: false});
 };

@@ -25,10 +25,5 @@ router.get('/pokemons', listPokemonsAndQuery);
 router.get('/types', getPokemonTypes);
 
 
-
-
-
-
-
 // Exportamos router que se va a importar en app.js para poder correr las rutas que armo
 module.exports = router;

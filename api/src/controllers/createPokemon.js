@@ -14,7 +14,8 @@ async function createPokemon(req, res) {
             defense,
             speed,
             height,
-            weight
+            weight,
+            image
         });
     
         // Adds the

@@ -62,18 +62,16 @@ async function getApiPokemons() {
 async function getDbPokemons() {
   // Buscamos todo lo que tenga la base de datos en la tabla Pokémon que incluya el modelo Tipo.
   const pokesDb = await Pokemon.findAll({
-    includes: {
+    include:[{
       model: Tipo,
-      attributes: ['name'],
+      attributes: ['nombre'],
       through: {
-        attributes: [],           // !!!!!!!! ESTUDIAR
+        attributes: [],
       },
-    },
+    }],
   });
-  console.log(pokesDb)
   return pokesDb;
 };
-
 
 
 
@@ -82,6 +80,7 @@ async function getDbPokemons() {
 async function getAllPokemons() {
   const apiData = await getApiPokemons();
   const dbData = await getDbPokemons();
+  //console.log('DB!!!!!! ' + dbData)
   const dbAndApiPokemons = apiData.concat(dbData);
   return dbAndApiPokemons;
 };

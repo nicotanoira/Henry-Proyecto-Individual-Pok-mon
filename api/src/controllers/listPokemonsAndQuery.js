@@ -1,7 +1,7 @@
 const axios = require('axios');
 const { getDbPokemons, getAllPokemons } = require('../services/pokemonServices.js');
-const { Pokemon, Tipo } = require('../db.js')
-const { Op } = require("sequelize");
+const { Pokemon } = require('../db.js')
+
 
 // Los controladores reciben y devuelven las peticiones al FrontEnd - Se comunican con los servicios
 
