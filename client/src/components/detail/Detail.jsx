@@ -23,7 +23,7 @@ export default function Detail() {
 
             {myPokemon ?
                 <div>
-                    <h1>{myPokemon.name}</h1>
+                    <h1>{(myPokemon.name).replace((myPokemon.name)[0], (myPokemon.name)[0].toUpperCase())}</h1>
                     <img src={myPokemon.img ? myPokemon.img : myPokemon.image } />
                     <p>HP: {myPokemon.healthPoints}</p>
                     <p>Attack: {myPokemon.attack}</p>

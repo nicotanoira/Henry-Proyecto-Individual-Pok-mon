@@ -1,0 +1,9 @@
+
+.pokemon {
+    display: flex;
+    flex-direction: column;
+    letter-spacing: 0.28px;
+    gap: 2em;
+    cursor: pointer;
+    
+}
