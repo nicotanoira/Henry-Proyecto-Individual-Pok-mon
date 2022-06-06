@@ -1,8 +1,8 @@
-
-
 const initialState = {
     pokemons: [],
-    allPokemons: []
+    allPokemons: [],
+    detail: [],
+    types: []
 }
 
 function rootReducer(state = initialState, action) {
@@ -20,13 +20,13 @@ function rootReducer(state = initialState, action) {
                 pokemons: action.payload
             }
 
+        case 'GET_TYPES':
+            return {
+                ...state,
+                types: action.payload
+            }
+
         case 'ORDER_BY_NAME':
-            // if(action.payload === 'pokedex') {
-            //     return {
-            //         ...state,
-            //         pokemons: state.allPokemons
-            //     }
-            // }
             let sortedArr = action.payload === 'asc' ?
                 state.pokemons.sort(function (a, b) {
                     if (a.name > b.name) {
@@ -53,10 +53,31 @@ function rootReducer(state = initialState, action) {
 
         case 'FILTER_BY_TYPE':
             const allPokemons = state.allPokemons
-            const typeFiltered = action.payload === 'All' ? allPokemons : allPokemons.filter(poke => poke.type === action.payload)
+
+            if (action.payload === 'All') {
+                return allPokemons;
+            } else {
+                let typeFiltered = allPokemons.filter((poke) => {
+                    for (let i = 0; i < poke.types.length; i++) {
+                        if (poke.types[i] === action.payload) {
+                            console.log('SAME TYPE!! ' + poke.types)
+                            return true;
+                        } else if (poke.types[i].name === action.payload) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
+
+                return {
+                    ...state,
+                    pokemons: [...typeFiltered]
+                }
+            }
+        
+        case 'POST_POKEMON':
             return {
-                ...state,
-                pokemons: typeFiltered
+                ...state
             }
 
         case 'FILTER_CREATED':
@@ -65,6 +86,12 @@ function rootReducer(state = initialState, action) {
             return {
                 ...state,
                 pokemons: action.payload === 'All' ? state.allPokemons : createdFilter
+            }
+
+        case 'GET_DETAILS':
+            return{
+                ...state,
+                detail: action.payload
             }
 
         default:

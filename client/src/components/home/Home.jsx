@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPokemons, filterPokemonsByType, filterCreated, orderByName } from '../../redux/actions/index';
 import { Link } from 'react-router-dom';
+import SearchBar from '../search_bar/SearchBar';
 import Card from '../card/Card';
 import Paginado from '../paginado/Paginado';
 
@@ -25,7 +26,6 @@ export default function Home() {
     }, [dispatch]);
 
     function handleClick(e){
-        e.preventDefault();
         dispatch(getPokemons());
     };
 
@@ -49,12 +49,12 @@ export default function Home() {
             <Link to='/pokemon'>Create Pokémon</Link>
             <h1>POKÉMON</h1>
             <button onClick={e => {handleClick(e)}}>
-                Refresh Pokémons
+                Pokédex Order
             </button>
             <div>
 
                 <select onChange={e => handleSort(e)}>
-                    <option value='pokedex'>Pokedex Order</option>
+                    <option>Choose an order</option>
                     <option value='asc'>A-Z</option>
                     <option value='desc'>Z-A</option>
                 </select>
@@ -86,7 +86,7 @@ export default function Home() {
                 <select onChange={e => handleCreatedFilter(e)}>
                     <option value='all'>All</option>
                     <option value='created'>Created</option>
-                    <option value='api'>Existing</option>
+                    <option value='api'>Original</option>
                 </select>
 
                 <Paginado 
@@ -95,12 +95,14 @@ export default function Home() {
                 paginado = {paginado}
                 />
 
+                <SearchBar/>
+
                 <section className="home-pokemons">
                     {currentPokemons?.map( poke => {
                         return (
                             <div>
                                 <Link to={"/home/" + poke.id}>
-                                    <Card name={poke.name} image={poke.image} tipo={poke.type}/>
+                                    <Card name={poke.name} image={poke.image} types={poke.types}/>
                                 </Link>
                             </div>
                         );

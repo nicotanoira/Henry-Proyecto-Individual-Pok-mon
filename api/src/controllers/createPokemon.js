@@ -1,10 +1,10 @@
 const axios = require('axios');
 const { createPokemonForm } = require('../services/pokemonServices.js');
-const { Pokemon, Tipo } = require('../db.js');
+const { Pokemon, Type } = require('../db.js');
 
 
 async function createPokemon(req, res) {
-    const { name, healthPoints, attack, defense, speed, height, weight, type, image } = req.body;
+    const { name, healthPoints, attack, defense, speed, height, weight, types, image } = req.body;
     try {
         // Creates the Pokémon in the Database
         const pokemonCreadoEnDb = await Pokemon.create({
@@ -19,15 +19,15 @@ async function createPokemon(req, res) {
         });
     
         // Adds the
-        let typeDb = await Tipo.findAll({
+        let typeDb = await Type.findAll({
             where: {
-                nombre: type
+                name: types
             }
         });
     
-        pokemonCreadoEnDb.addTipo(typeDb);
+        pokemonCreadoEnDb.addType(typeDb);
         
-        res.status(201).json(createPokemonForm(name, healthPoints, attack, defense, speed, height, weight, type, image))
+        res.status(201).json(createPokemonForm(name, healthPoints, attack, defense, speed, height, weight, types, image))
     } catch (error) {
         console.log(error)
         res.status().send({message: 'Error!! No se que error'})

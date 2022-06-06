@@ -2,13 +2,13 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('tipo', {
+    sequelize.define('type', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        nombre: {
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },

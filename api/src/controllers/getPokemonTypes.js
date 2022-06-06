@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { getApiTypes } = require('../services/pokemonServices.js');
-const { Tipo } = require('../db.js');
+const { Type } = require('../db.js');
 
 
 async function getPokemonTypes(req, res) {
@@ -11,7 +11,7 @@ async function getPokemonTypes(req, res) {
         // Adds each Type to the Database.
         foundTypes.forEach(el => {
             if (el !== null && el !== '') {
-                Tipo.findOrCreate({ where: { nombre: el } })
+                Type.findOrCreate({ where: { name: el } })
             }
         });
 

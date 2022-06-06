@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { Pokemon, Tipo } = require('../db.js');
+const { Pokemon, Type } = require('../db.js');
 
 // SERVICIOS = Son los programas que acceden a la API externas o Bases de datos.
 
@@ -44,7 +44,7 @@ async function getApiPokemons() {
           speed: pokemon.data.stats[5].base_stat,
           height: pokemon.data.height,
           weight: pokemon.data.weight,
-          type: pokemon.data.types.map(pokemon => pokemon.type.name),
+          types: pokemon.data.types.map(pokemon => pokemon.type.name),
           image: pokemon.data.sprites.front_default
         })
       })
@@ -60,11 +60,11 @@ async function getApiPokemons() {
 
 // Traemos los Pokémons de la base de datos.
 async function getDbPokemons() {
-  // Buscamos todo lo que tenga la base de datos en la tabla Pokémon que incluya el modelo Tipo.
+  // Buscamos todo lo que tenga la base de datos en la tabla Pokémon que incluya el modelo Type.
   const pokesDb = await Pokemon.findAll({
     include:[{
-      model: Tipo,
-      attributes: ['nombre'],
+      model: Type,
+      attributes: ['name'],
       through: {
         attributes: [],
       },
