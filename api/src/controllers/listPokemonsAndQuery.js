@@ -1,6 +1,6 @@
 const axios = require('axios');
 const { getDbPokemons, getAllPokemons } = require('../services/pokemonServices.js');
-const { Pokemon } = require('../db.js')
+const { Pokemon, Type } = require('../db.js')
 
 
 // Los controladores reciben y devuelven las peticiones al FrontEnd - Se comunican con los servicios
@@ -16,7 +16,12 @@ module.exports = {
                 
                 // Traemos de la Base de Datos el name pasado por Query, si es que existe.
                 // We grab the name passed by Query from our Database, if it exists.
-                const searchDbPokeName = await Pokemon.findOne({where: { name: name }})
+                const searchDbPokeName = await Pokemon.findOne({
+                    where: { name: name },
+                    include: [
+                        { model: Type, attributes: ['id', 'name'] }
+                    ]
+                })
 
                 // Si encontramos el name *CASE SENSITIVE* en la Base de Datos, entra en el if y devuelve ese Pokémon
                 if (searchDbPokeName !== null) {

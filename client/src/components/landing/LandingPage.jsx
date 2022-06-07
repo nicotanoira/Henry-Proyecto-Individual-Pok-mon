@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './landing.css'
 
 export default function LandingPage() {
     return (
-        <div>
-            <h1>Bienvenidos a mi super página</h1>
+        <div className='landing-body'>
             <Link to='/home'>
-                <button>Ingresar</button>
+                <img className='img-landing-logo' src='https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png' alt='logo'/>
             </Link>
         </div>
     )

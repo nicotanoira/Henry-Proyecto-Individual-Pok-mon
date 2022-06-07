@@ -1,0 +1,23 @@
+.search-bar {
+
+}
+
+.container-search {
+    padding: 5px;
+    border: none;
+    margin-right: 10px;
+    
+}
+
+.container-search a.active {
+    background-color: #2196F3;
+    color: white;
+}
+
+.input-search {
+    width: 400px;
+    height: 50px;
+    font-size: 18px;
+    border-radius: 10px;
+    
+}

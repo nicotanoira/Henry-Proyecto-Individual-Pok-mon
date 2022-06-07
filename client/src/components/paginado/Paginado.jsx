@@ -9,7 +9,7 @@ export default function Paginado({pokemonsPerPage, allPokemons, paginado}) {
     }
 
     return(
-        <nav>
+        <div>
             <ul className='paginado'>
                 {
                 pageNumbers?.map(number => (
@@ -19,6 +19,6 @@ export default function Paginado({pokemonsPerPage, allPokemons, paginado}) {
                 ))
                 }
             </ul>
-        </nav>
+        </div>
     )
 }

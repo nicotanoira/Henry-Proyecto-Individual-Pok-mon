@@ -17,7 +17,7 @@ function rootReducer(state = initialState, action) {
         case 'GET_NAME_POKEMONS':
             return {
                 ...state,
-                pokemons: action.payload
+                pokemons: [action.payload]
             }
 
         case 'GET_TYPES':
@@ -28,20 +28,20 @@ function rootReducer(state = initialState, action) {
 
         case 'ORDER_BY_NAME':
             let sortedArr = action.payload === 'asc' ?
-                state.pokemons.sort(function (a, b) {
-                    if (a.name > b.name) {
+                state.allPokemons.sort(function (a, b) {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return 1;
                     }
-                    if (b.name > a.name) {
+                    if (b.name.toLowerCase() > a.name.toLowerCase()) {
                         return -1;
                     }
                     return 0;
                 }) :
-                state.pokemons.sort(function (a, b) {
-                    if (a.name > b.name) {
+                state.allPokemons.sort(function (a, b) {
+                    if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return -1;
                     }
-                    if (b.name > a.name) {
+                    if (b.name.toLowerCase() > a.name.toLowerCase()) {
                         return 1;
                     }
                     return 0;
@@ -55,12 +55,15 @@ function rootReducer(state = initialState, action) {
             const allPokemons = state.allPokemons
 
             if (action.payload === 'All') {
-                return allPokemons;
+                return {
+                    ...state,
+                    pokemons: allPokemons
+
+                }
             } else {
                 let typeFiltered = allPokemons.filter((poke) => {
                     for (let i = 0; i < poke.types.length; i++) {
                         if (poke.types[i] === action.payload) {
-                            console.log('SAME TYPE!! ' + poke.types)
                             return true;
                         } else if (poke.types[i].name === action.payload) {
                             return true;

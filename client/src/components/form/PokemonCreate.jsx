@@ -98,85 +98,120 @@ export default function PokemonCreate() {
 
 
     return(
-        <div>
-            <h1>Create your Pokémon!</h1>
-            <form onSubmit={(e) => handleSubmit(e)}>
-                <div>
-                    <label>Name:</label>
-                    <input onChange={(e) => handleChange(e)} type='text' value={input.name} name='name'/>
-                    {errors.name && (<p className='error'>{errors.name}</p>)}
+        <div className="componentCreate">
+            <div className='NavBar'>
+
+                {/* Left NavBar Segment */}
+                <div className='NavBar-left'>
+                    {/* Return button */}
+                    <Link to='/home'>
+                        <button className="buttonHome">Back to Home</button>
+                    </Link>
                 </div>
 
-                <div>
-                    <label>HP:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.healthPoints} name='healthPoints'/>
-                    {errors.healthPoints && (<p className='error'>{errors.healthPoints}</p>)}
+                {/* Center NavBar Segment */}
+                <div className='NavBar-center'>
+                    {/* Logo and Landing Page button */}
+                    <Link to='/'>
+                            <img className='pokeImg' src='https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png' alt='logo' height="60"/>
+                    </Link>
                 </div>
 
-                <div>
-                    <label>Attack:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.attack} name='attack'/>
-                    {errors.attack && (<p className='error'>{errors.attack}</p>)}
+                {/* Right NavBar Segment */}
+                <div className='NavBar-right'>
+                    <button className="buttonHome" type='submit'>Create Pokémon</button>
                 </div>
 
-                <div>
-                    <label>Defense:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.defense} name='defense'/>
-                    {errors.defense && (<p className='error'>{errors.defense}</p>)}
-                </div>
+            </div>
+            <div className="create-form">       
+                <h1>Create your Pokémon!</h1>
+                <form onSubmit={(e) => handleSubmit(e)}>
 
-                <div>
-                    <label>Speed:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.speed} name='speed'/>
-                    {errors.speed && (<p className='error'>{errors.speed}</p>)}
-                </div>
+                    {/* Name */}
+                    <div>
+                        <label>Name:</label>
+                        <input onChange={(e) => handleChange(e)} type='text' value={input.name} name='name'/>
+                        {errors.name && (<p className='error'>{errors.name}</p>)}
+                    </div>
 
-                <div>
-                    <label>Height:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.height} name='height'/>
-                    {errors.height && (<p className='error'>{errors.height}</p>)}
-                </div>
+                    {/* HP */}
+                    <div>
+                        <label>HP:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.healthPoints} name='healthPoints'/>
+                        {errors.healthPoints && (<p className='error'>{errors.healthPoints}</p>)}
+                    </div>
 
-                <div>
-                    <label>Weight:</label>
-                    <input onChange={(e) => handleChange(e)} type='number' value={input.weight} name='weight'/>
-                    {errors.weight && (<p className='error'>{errors.weight}</p>)}
-                </div>
+                    {/* Attack */}
+                    <div>
+                        <label>Attack:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.attack} name='attack'/>
+                        {errors.attack && (<p className='error'>{errors.attack}</p>)}
+                    </div>
 
-                <div>
-                    <label>Image:</label>
-                    <input onChange={(e) => handleChange(e)} type='text' value={input.image} name='image'/>
-                    {errors.image && (<p className='error'>{errors.image}</p>)}
-                </div>
+                    {/* Defense */}
+                    <div>
+                        <label>Defense:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.defense} name='defense'/>
+                        {errors.defense && (<p className='error'>{errors.defense}</p>)}
+                    </div>
 
-                <select onChange={(e) => handleSelect(e)}>
-                    <option>Types:</option>
-                    {types?.map((el) => (
-                        <option value={el}>{el.replace(el[0], el[0].toUpperCase())}</option>
-                    ))}
-                </select>
 
-                <div>
-                    <label>Select 1 or 2 Types.</label>
-                    <br/>
-                    <label>Types selected:</label>
-                    <br/>
-                    {input.types?.map(el => 
+                    {/* Speed */}
+                    <div>
+                        <label>Speed:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.speed} name='speed'/>
+                        {errors.speed && (<p className='error'>{errors.speed}</p>)}
+                    </div>
+
+                    {/* Height */}
+                    <div>
+                        <label>Height:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.height} name='height'/>
+                        {errors.height && (<p className='error'>{errors.height}</p>)}
+                    </div>
+
+                    {/* Weight */}
+                    <div>
+                        <label>Weight:</label>
+                        <input onChange={(e) => handleChange(e)} type='number' value={input.weight} name='weight'/>
+                        {errors.weight && (<p className='error'>{errors.weight}</p>)}
+                    </div>
+
+                    {/* Image */}
+                    <div>
+                        <label>Image:</label>
+                        <input onChange={(e) => handleChange(e)} type='text' value={input.image} name='image'/>
+                        {errors.image && (<p className='error'>{errors.image}</p>)}
+                    </div>
+
+                    {/* Types */}
+                    <div>
+                        <select onChange={(e) => handleSelect(e)}>
+                            <option>Types:</option>
+                            {types?.map((el) => (
+                                <option value={el}>{el.replace(el[0], el[0].toUpperCase())}</option>
+                            ))}
+                        </select>
+
                         <div>
-                            <span>{el.replace(el[0], el[0].toUpperCase())}</span>
-                            <button className='botonX' type="reset" onClick={() => handleDelete(el)}>x</button>
-                            {errors.image && (<p className='error'>{errors.image}</p>)}
-                        </div>
-                    )}
-                </div>           
-            
-            
-                <button type='submit'>Create Pokémon</button>
-            </form>
+                            <label>Select 1 or 2 Types.</label>
+                            <br/>
+                            <label>Types selected:</label>
+                            <br/>
+                            {input.types?.map(el => 
+                                <div>
+                                    <span>{el.replace(el[0], el[0].toUpperCase())}</span>
+                                    <button className='botonX' type="reset" onClick={() => handleDelete(el)}>x</button>
+                                    {errors.image && (<p className='error'>{errors.image}</p>)}
+                                </div>
+                            )}
+                        </div>   
+                    </div>
 
-
-
-            <Link to='/home'><button>Go Back</button></Link>
+                
+                    
+                </form>
+            </div>              
         </div>
     )
 };
