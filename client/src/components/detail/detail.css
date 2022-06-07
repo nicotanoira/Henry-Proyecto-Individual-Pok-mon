@@ -14,14 +14,20 @@
     
 }
 
+.all-detail {
+    padding-top: 1em;
+    padding-bottom: 10em;
+}
 
 .imgDetailCard{
     width: 240px;
-    height: 300px ;
+    height: 250px ;
+    font-family: "Arial Black", Gadget, sans-serif
 }
 
 .title { 
-    margin-top: 150px;
+    padding-top: 1em;
+    margin-top: 20px;
     text-decoration: solid;
     text-transform: uppercase;
     margin-bottom: 10px;
@@ -30,9 +36,34 @@
 .text{
     text-decoration: solid;
     text-transform: capitalize;
+    font-family: "Arial Black", Gadget, sans-serif
 }
 
-.body-detail {
-    background-image: url(https://images5.alphacoders.com/410/thumbbig-410373.webp);
-    
+.all-card {
+    min-height: 100%;
+    background-image: url(https://images5.alphacoders.com/410/thumbbig-410373.webp);   
+    background-position: center;
+    background-size : cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    padding-bottom: 47px;
+}
+
+.loading-detail{ 
+    align-items: center;
+    padding-top: 140px;
+    padding-bottom: 120px;
+    padding-left: 30px
+}
+
+.type {
+    margin-bottom: 0px;
+}
+
+.types {
+    margin-bottom: 0px;
+    font-family: "Arial Black", Gadget, sans-serif
+}
+.detail-body {
+    margin-top: 80px;
 }

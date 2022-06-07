@@ -48,10 +48,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
   min-width: 100%;
   flex-direction: row;
   top: 0;
+  position: fixed;
 }
 
 .custom-select{
@@ -103,10 +103,13 @@
     background-color: #efb810;
 }
 
-.loading{ 
+.loading-home{ 
   
   align-items: center;
-  margin-top: 200px;
+  
+  padding-top: 341px;
+  padding-bottom: 341px;
+  padding-left: 14px
 
 }
 

@@ -45,7 +45,8 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.TEXT,
-      allowNull: false
+      allowNull: false,
+      defaultValue: 'https://mcdn.wallpapersafari.com/medium/89/90/KdNu1B.png'
     },
     createdInDb: {
       type: DataTypes.BOOLEAN,

@@ -103,6 +103,17 @@ async function searchPokemonByIdApi(id) {
   };
 };
 
+async function searchPokemonByIdDb(id) {
+  const pokeId = await Pokemon.findByPk(id, 
+    {include: [{ 
+      model: Type,
+      attributes: ['name'],
+      through: {
+        attributes: [],
+      }}]});
+  return pokeId
+}
+
 // Busca en la API los 20 TIPOS de Pokémon y los devuelve en un ARRAY.
 async function getApiTypes() {
   let typeArr = [];
@@ -127,4 +138,4 @@ function createPokemonForm(name, healthPoints, attack, defense, speed, height, w
   };
 };
 
-module.exports = { getApiPokemons, getDbPokemons, getAllPokemons, searchPokemonByIdApi, getApiTypes, createPokemonForm }
+module.exports = { getApiPokemons, getDbPokemons, getAllPokemons, searchPokemonByIdApi, getApiTypes, createPokemonForm, searchPokemonByIdDb }

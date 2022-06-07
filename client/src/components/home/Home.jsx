@@ -50,7 +50,7 @@ export default function Home() {
     return (
         <div className="homepage">
             {!allPokemonsLoad.length ?
-                <div className="loading">
+                <div className="loading-home">
                     <img src='https://pa1.narvii.com/7359/696a2348274d41f3f9029e7ab0628b0c3057a9f8r1-500-250_hq.gif' alt="not found" />
                     <br />
                 </div> 

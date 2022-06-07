@@ -22,7 +22,6 @@ export default function SearchBar() {
         setName("")
     }
 
-    console.log(name)
     return (
         <div className="container-search">
             <input type="text" className="input-search" onChange={e => handleInputChange(e)} name="name" placeholder="Search Pokémon..."  />
