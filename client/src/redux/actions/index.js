@@ -1,10 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 export function getPokemons() {
     return async function(dispatch){
         let json = await axios("http://localhost:3001/pokemons");
         return dispatch({
-            type: 'GET_POKEMONS',
+            type: "GET_POKEMONS",
             payload: json.data
         });
     }
@@ -15,11 +16,12 @@ export function getNamePokemons(name) {
         try {
             let json = await axios("http://localhost:3001/pokemons?name=" + name);
             return dispatch({
-                type: 'GET_NAME_POKEMONS',
+                type: "GET_NAME_POKEMONS",
                 payload: json.data
             });
         } catch (err) {
             console.log(err)
+            return false;
         };
     }
 };
@@ -28,7 +30,7 @@ export function getTypes() {
     return async function(dispatch) {
         let info = await axios("http://localhost:3001/types");
         return dispatch({
-            type: 'GET_TYPES', 
+            type: "GET_TYPES", 
             payload: info.data
         });
     }
@@ -43,21 +45,21 @@ export function postPokemon(payload) {
 
 export function orderByName(payload) {
     return {
-        type: 'ORDER_BY_NAME',
+        type: "ORDER_BY_NAME",
         payload
     }
 };
 
 export function filterPokemonsByType(payload) {
     return {
-        type: 'FILTER_BY_TYPE',
+        type: "FILTER_BY_TYPE",
         payload
     }
 };
 
 export function filterCreated(payload) {
     return {
-        type: 'FILTER_CREATED',
+        type: "FILTER_CREATED",
         payload
     }
 };
@@ -74,4 +76,8 @@ export function getDetail(id) {
             console.log(error)
         }
     }
+}
+
+export function deletePokemon(id) {
+    
 }

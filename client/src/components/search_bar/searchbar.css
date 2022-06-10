@@ -1,5 +1,21 @@
-.search-bar {
-
+.search-error {
+    width: 500px;
+    text-decoration: solid;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 0.20em;
+    margin-top: 0.25em;
+    margin-bottom: 0px;
+    font-family: "Flexo-Medium",arial,sans-serif;
+    border-radius: 8px;
+    color: #efb810;
+    background-color: rgb(188, 0, 0, 0.507);
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 30px;
+    letter-spacing: 0.05em;
+    -webkit-text-stroke: 0.2px rgba(255, 255, 255, 0.507); /* width and color */
+    font-weight: 700;
 }
 
 .container-search {

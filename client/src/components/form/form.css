@@ -1,51 +1,25 @@
-.homeButton:hover{
-    background-color: rgb(100, 10, 10);
-    cursor: url(https://cdn.custom-cursor.com/db/249/32/arrow2282.png) , pointer!important;
-    
-}
 
 .create-form {
-    border-color: aliceblue;
     border-radius: 8px;
     color: rgb(255, 255, 255);
     background-color: #000000e5;
     width: 450px;
-    margin-top: 0px;
-    margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto; 
-    background-size: 100%;
-    height: 687px;
+    height: 750px;
 }
 
 .componentCreate{
-    display: flex;
-    justify-content: space-around;
     padding: 150px 0 200px;   
-    height: 100%;
     background-image: url(https://wallpaper-mania.com/wp-content/uploads/2018/09/High_resolution_wallpaper_background_ID_77700511623.jpg);
     background-position: center;
     background-size : cover;
     background-repeat: no-repeat;
 
 }
-.Formulario{
-    display: flex;
-    flex-direction: column;
-    background: rgba(23, 22, 27, 0.867);
-    border-radius: 30px;
-    border: 1px solid #cbb6b6;
-    color: #ffffff;
-    padding: 20px;
-    margin: -50px 50px 0 0;
-    width: 620px;
-}
-
-
 .nameForm label{
     display: inline-block;
     padding: 4px 0 5px;
-    max-width: 100%;
     margin-bottom: 15px;
     font-weight: 700;
 }
@@ -53,28 +27,26 @@
 
 .nameForm input{
     background-color: transparent;
-    color: #cbb6b6;
+    color: #ffffff;
     border: 1px solid #cbb6b6;
     padding-left: 8px;
     border-radius: 5px;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
     font: inherit;
     margin: 0;
     margin-left: 1em;
 }
+
 .error{
     color: red;
     font-size: 20px;
+    font-weight: 700;
 }
 
 
 .cajita{
     display: inline-block;    
     color: rgb(255, 255, 255);     
-    margin: 10px 10px 0 -5px;   
-    
+    margin: 10px 10px 0 -5px;  
 }
 
 .ButtonX{    
@@ -93,7 +65,7 @@
 }
 
 .ButtonX:hover{ 
-    background-color: #f13106;
+    background-color: #dd5b3e;
 }
 
 
@@ -155,6 +127,7 @@
   cursor: pointer;
   display: inline-block;
   border-radius: 25px;
+  cursor: url(https://cdn.custom-cursor.com/db/249/32/arrow2282.png) , pointer!important;
 }
 
 .buttonHome-form:hover{
@@ -185,4 +158,8 @@
     margin: 8px 10px 12px;
     color:rgb(0, 0, 0);
     background-color: #ffffff;
+}
+
+.pokeImg-form {
+    margin: 1.5em 2em;
 }

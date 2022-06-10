@@ -9,7 +9,7 @@
     margin-left: auto;
     margin-right: auto; 
     background-size: 100%;
-     
+    height: 825px;
       
     
 }
@@ -36,17 +36,14 @@
 .text{
     text-decoration: solid;
     text-transform: capitalize;
-    font-family: "Arial Black", Gadget, sans-serif
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 20px;
 }
 
 .all-card {
-    min-height: 100%;
     background-image: url(https://images5.alphacoders.com/410/thumbbig-410373.webp);   
     background-position: center;
     background-size : cover;
-    background-repeat: no-repeat;
-    max-width: 100%;
-    padding-bottom: 47px;
 }
 
 .loading-detail{ 
@@ -57,13 +54,13 @@
 }
 
 .type {
-    margin-bottom: 0px;
+    margin-bottom: 100px;
 }
 
 .types {
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     font-family: "Arial Black", Gadget, sans-serif
 }
 .detail-body {
-    margin-top: 80px;
+    margin-top: 90px;
 }

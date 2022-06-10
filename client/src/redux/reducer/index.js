@@ -7,27 +7,27 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
     switch(action.type) {
-        case 'GET_POKEMONS':
+        case "GET_POKEMONS":
             return {
                 ...state,
                 pokemons: action.payload,
                 allPokemons: action.payload
             }
 
-        case 'GET_NAME_POKEMONS':
+        case "GET_NAME_POKEMONS":
             return {
                 ...state,
                 pokemons: [action.payload]
             }
 
-        case 'GET_TYPES':
+        case "GET_TYPES":
             return {
                 ...state,
                 types: action.payload
             }
 
-        case 'ORDER_BY_NAME':
-            let sortedArr = action.payload === 'asc' ?
+        case "ORDER_BY_NAME":
+            let sortedArr = action.payload === "asc" ?
                 state.allPokemons.sort(function (a, b) {
                     if (a.name.toLowerCase() > b.name.toLowerCase()) {
                         return 1;
@@ -51,10 +51,10 @@ function rootReducer(state = initialState, action) {
                 pokemons: sortedArr
             }
 
-        case 'FILTER_BY_TYPE':
+        case "FILTER_BY_TYPE":
             const allPokemons = state.allPokemons
 
-            if (action.payload === 'All') {
+            if (action.payload === "All") {
                 return {
                     ...state,
                     pokemons: allPokemons
@@ -78,20 +78,20 @@ function rootReducer(state = initialState, action) {
                 }
             }
         
-        case 'POST_POKEMON':
+        case "POST_POKEMON":
             return {
                 ...state
             }
 
-        case 'FILTER_CREATED':
+        case "FILTER_CREATED":
             const allPokemons2 = state.allPokemons
-            const createdFilter = action.payload === 'created' ? allPokemons2.filter(poke => poke.createdInDb) : allPokemons2.filter(poke => !poke.createdInDb)
+            const createdFilter = action.payload === "created" ? allPokemons2.filter(poke => poke.createdInDb) : allPokemons2.filter(poke => !poke.createdInDb)
             return {
                 ...state,
-                pokemons: action.payload === 'All' ? state.allPokemons : createdFilter
+                pokemons: action.payload === "All" ? state.allPokemons : createdFilter
             }
 
-        case 'GET_DETAILS':
+        case "GET_DETAILS":
             return{
                 ...state,
                 detail: action.payload

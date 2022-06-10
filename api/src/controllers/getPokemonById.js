@@ -1,5 +1,5 @@
-const axios = require('axios');
-const { searchPokemonByIdApi, searchPokemonByIdDb } = require('../services/pokemonServices.js');
+const axios = require("axios");
+const { searchPokemonByIdApi, searchPokemonByIdDb } = require("../services/pokemonServices.js");
 
 async function getPokemonById(req, res) {
     try {  
@@ -15,7 +15,7 @@ async function getPokemonById(req, res) {
         res.status(200).send(foundPokemon);
     } catch (error) {
         console.log(error)
-        res.status(404).json({message: 'Error 404 - Not Found'})
+        res.status(404).json({message: "Error 404 - Not Found"})
     }
 }
 

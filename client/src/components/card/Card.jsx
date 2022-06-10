@@ -7,7 +7,7 @@ export default function Card({ name, image, types}) {
         <div className="card">
             <h3 className="name-title">{ name.toUpperCase() }</h3>
             <img src={image} alt="Not found" width="200px" height="200px"/>
-            <div className="type-img">
+            <div>
                 {types?.map(el => {
                     if (typeof (el) === "string") {
                         return (

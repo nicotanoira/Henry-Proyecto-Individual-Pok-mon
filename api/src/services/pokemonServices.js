@@ -1,10 +1,10 @@
-const axios = require('axios');
-const { Pokemon, Type } = require('../db.js');
+const axios = require("axios");
+const { Pokemon, Type } = require("../db.js");
 
 // SERVICIOS = Son los programas que acceden a la API externas o Bases de datos.
 
 // Axios despues de hacer un request devuelve un arreglo ENORME donde -             !!!!!!
-// la info que buscamos del URL esta almacenada en una propiedad llamada 'data' -   !!!!!!
+// la info que buscamos del URL esta almacenada en una propiedad llamada "data" -   !!!!!!
 
 
 
@@ -15,15 +15,15 @@ async function getApiPokemons() {
   const pokeArr = [];
 
   // Obtengo la lista completa de Pokémons con su nombre y URL.
-  const pokesApi = await axios.get('https://pokeapi.co/api/v2/pokemon');
+  const pokesApi = await axios.get("https://pokeapi.co/api/v2/pokemon");
 
-  // Dentro de la API trae los primeros 20 Pokémons. Con su propiedad 'data.next' sacamos los siguientes 20.
+  // Dentro de la API trae los primeros 20 Pokémons. Con su propiedad "data.next" sacamos los siguientes 20.
   const pokesApiNext = await axios.get(pokesApi.data.next);
 
   // Como tengo que traer 40 Pokémons a la ruta principal, concateno los primeros 20 y segundos 20 para trabajar con los 40 y devolverlos.
   const all40Pokes = [
     ...pokesApi.data.results,           // Esto me devuelve un ARRAY concatenado de 40 objetos que tienen 
-    ...pokesApiNext.data.results,       // {name: POKENAME, url: 'https://pokeapi.co/api/v2/pokemon/NUM/' }.
+    ...pokesApiNext.data.results,       // {name: POKENAME, url: "https://pokeapi.co/api/v2/pokemon/NUM/" }.
   ];                                    
 
   // Obtengo la info de CADA Pokémon via su URL en formato de PROMESAS. ---- [Promise { <pending> }, Promise { <pending> }.........etc]
@@ -64,7 +64,7 @@ async function getDbPokemons() {
   const pokesDb = await Pokemon.findAll({
     include:[{
       model: Type,
-      attributes: ['name'],
+      attributes: ["name"],
       through: {
         attributes: [],
       },
@@ -80,7 +80,6 @@ async function getDbPokemons() {
 async function getAllPokemons() {
   const apiData = await getApiPokemons();
   const dbData = await getDbPokemons();
-  //console.log('DB!!!!!! ' + dbData)
   const dbAndApiPokemons = apiData.concat(dbData);
   return dbAndApiPokemons;
 };
@@ -107,17 +106,17 @@ async function searchPokemonByIdDb(id) {
   const pokeId = await Pokemon.findByPk(id, 
     {include: [{ 
       model: Type,
-      attributes: ['name'],
+      attributes: ["name"],
       through: {
         attributes: [],
       }}]});
   return pokeId
 }
 
-// Busca en la API los 20 TIPOS de Pokémon y los devuelve en un ARRAY.
+// Busca en la API los 20 TIPOS de Pokémon y los devuelve en un ARRAY. // YA NO SIRVE ESTA FUNCION. En db.js estoy guardando TODOS mis types en la BD
 async function getApiTypes() {
   let typeArr = [];
-  const typesApi = await axios.get('https://pokeapi.co/api/v2/type');
+  const typesApi = await axios.get("https://pokeapi.co/api/v2/type");
   const pokeTypes = typesApi.data.results.map(type => { typeArr.push(type.name) });
   return typeArr;
 }

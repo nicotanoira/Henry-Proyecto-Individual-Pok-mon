@@ -1,6 +1,6 @@
 .landing-body {
-    height: 100%;
-    padding: 0px 0px 431px 10px; 
+    height: 937px;
+    padding-bottom: 432px;
     background-image: url(pokemon_walpaper_2.jpg);
     background-position: center;
     background-size : cover;
@@ -8,8 +8,6 @@
 }
 
 .img-landing-logo {
-    height: 150;
     position:relative;
-    margin-top: 1;
-    margin-left: 1em;
+    padding-top: 150px; 
 }

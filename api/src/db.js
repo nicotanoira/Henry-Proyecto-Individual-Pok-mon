@@ -2,6 +2,7 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
+const axios = require("axios");
 
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
@@ -39,6 +40,20 @@ const { Pokemon, Type } = sequelize.models;
 // Product.hasMany(Reviews);
 Pokemon.belongsToMany(Type, { through: "PokemonTypes" } )
 Type.belongsToMany(Pokemon, { through: "PokemonTypes" } )
+
+async function getPokemonTypes() {
+  let typeArr = [];
+  const typesApi = await axios.get("https://pokeapi.co/api/v2/type");
+  const pokeTypes = typesApi.data.results.map(type => { typeArr.push(type.name) });
+
+  // Adds each Type to the Database.
+  typeArr.map(el => {
+      if (el !== null && el !== "") {
+          Type.create({ name: el })
+      }
+  });
+};
+getPokemonTypes()
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

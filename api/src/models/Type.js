@@ -1,8 +1,8 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('type', {
+    sequelize.define("type", {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,

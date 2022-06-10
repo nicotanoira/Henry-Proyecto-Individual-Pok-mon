@@ -1,20 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetail } from "../../redux/actions";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { OBJECT_TYPE } from "../../shared/TypeImages";
-import './detail.css'
+import "./detail.css"
 
 export default function Detail() {
     const { id } = useParams()
     const dispatch = useDispatch();
-
+    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(getDetail(id));
     }, [dispatch, id]);
+
+    function handleDelete(id) {
+        function confirm() {
+            let answer = confirm("Are you sure you want to delete this Pokémon?")
+            if (answer === true) {
+                //dispatch(deletePokemon(id))
+                navigate("/home")
+            }
+        }
+        confirm();
+    }
 
     const myPokemon = useSelector((state) => state.detail)
 
@@ -23,37 +34,36 @@ export default function Detail() {
             <div className="all-card">
                 {myPokemon.id != id ?
                 <div className="loading">
-                    <img className='loading-detail' src='https://pa1.narvii.com/7359/696a2348274d41f3f9029e7ab0628b0c3057a9f8r1-500-250_hq.gif' alt="loading"/>
+                    <img className="loading-detail" src="https://pa1.narvii.com/7359/696a2348274d41f3f9029e7ab0628b0c3057a9f8r1-500-250_hq.gif" alt="loading"/>
                     <br/>
                 </div> : 
 
-                <div className='all-detail'>
+                <div className="all-detail">
 
-                    <div className='NavBar'>
+                    <div className="NavBar">
 
                         {/* Left NavBar Segment */}
-                        <div className='NavBar-left'>
+                        <div className="NavBar-left">
                             {/* Return button */}
-                            <Link to='/home'>
+                            <Link to="/home">
                                 <button className="buttonHome">Back to Home</button>
                             </Link>
                         </div>
 
                         {/* Center NavBar Segment */}
-                        <div className='NavBar-center'>
+                        <div className="NavBar-center">
                             {/* Logo and Landing Page button */}
-                            <Link to='/'>
-                                    <img className='pokeImg' src='https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png' alt='logo' height="60"/>
+                            <Link to="/">
+                                    <img className="pokeImg" src="https://www.freepnglogos.com/uploads/pokemon-logo-text-png-7.png" alt="logo" height="60"/>
                             </Link>
                         </div>
 
                         {/* Right NavBar Segment */}
-                        <div className='NavBar-right'></div>
+                        <div className="NavBar-right"></div>
 
                     </div>
 
                     <div className="detail-body">
-
                         
                         <div className="card-detail">
                             <h1 className="title">{(myPokemon.name)}</h1>
@@ -65,19 +75,33 @@ export default function Detail() {
                             <p className="text">Height: {myPokemon.height}</p>
                             <p className="text">Weight: {myPokemon.weight}</p>
                             <h3 className="types">Types: </h3>
-                            {myPokemon.type?.map(el => {
-                                if (typeof (el) === 'string') {
+                            {myPokemon.type ? myPokemon.type.map(t => {
+                                if (typeof (t) === "string") {
                                     return (
-                                        <span className="type" key={el}><img src={OBJECT_TYPE[el]} width="35" height="35"/></span>
+                                        <span className="type" key={t}><img src={OBJECT_TYPE[t]} width="50" height="50"/></span>
                                     )
                                 } else {
                                     return (
-                                        <span key={el}>
-                                            {el} 
+                                        <span key={t.name}>
+                                            <img src={OBJECT_TYPE[t.name]} width="50" height="50"/>
                                         </span>
                                     )
                                 }
-                            })}
+                            }) : myPokemon.types.map(t => {
+                                return(
+                                    <span className="type" key={t.name}><img src={OBJECT_TYPE[t.name]} width="50" height="50"/></span>
+                                    
+                                )
+                            })
+
+                            }
+                            
+                            {myPokemon.createdInDb && (
+                                <div>
+                                    <br></br>
+                                    <button className="buttonHome" onClick={(e) => handleDelete(e)}>Delete Pokémon</button>
+                                </div>
+                            ) }
                         </div>
                     </div>
                 </div>

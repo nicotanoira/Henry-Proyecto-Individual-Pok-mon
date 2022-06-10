@@ -1,6 +1,6 @@
-const axios = require('axios');
-const { getDbPokemons, getAllPokemons } = require('../services/pokemonServices.js');
-const { Pokemon, Type } = require('../db.js')
+const axios = require("axios");
+const { getDbPokemons, getAllPokemons } = require("../services/pokemonServices.js");
+const { Pokemon, Type } = require("../db.js")
 
 
 // Los controladores reciben y devuelven las peticiones al FrontEnd - Se comunican con los servicios
@@ -19,7 +19,7 @@ module.exports = {
                 const searchDbPokeName = await Pokemon.findOne({
                     where: { name: name },
                     include: [
-                        { model: Type, attributes: ['id', 'name'] }
+                        { model: Type, attributes: ["id", "name"] }
                     ]
                 })
 
@@ -53,13 +53,13 @@ module.exports = {
                         // We send the Pokémon the way it's requested.
                         res.status(200).send(pokeInfoRequested);
                     } else {
-                        res.status(404).json({message : 'No se encontro el Pokémon solicitado'}) 
+                        res.status(404).json({message : "No se encontro el Pokémon solicitado"}) 
                     }
                 }
             // If Query was sent but not found, throws an error.            
             } catch (error) {
                 console.log(error);
-                res.status(404).json({message : 'No se encontro el Pokémon solicitado'})  
+                res.status(404).json({message : "No se encontro el Pokémon solicitado"})  
             }
 
         // If NO Query is passed, return every Pokemon. If there's not any from Database, returns the ones from the API.
@@ -69,7 +69,7 @@ module.exports = {
                 res.status(200).send(pokemons)
             } catch (error) {
                 console.log(error);
-                res.status(404).json({message : 'Error - API URL'})  
+                res.status(404).json({message : "Error - API URL"})  
             }
 
         }       
